@@ -1,0 +1,16 @@
+{
+  "name": "dnd-npc-voice-engine",
+  "private": true,
+  "workspaces": [
+    "app/shared",
+    "app/server",
+    "app/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=app/server & npm run dev --workspace=app/web",
+    "dev:web": "npm run dev --workspace=app/web",
+    "dev:server": "npm run dev --workspace=app/server",
+    "build": "npm run build --workspace=app/shared && npm run build --workspace=app/server && npm run build --workspace=app/web",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  }
+}

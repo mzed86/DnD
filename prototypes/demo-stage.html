@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mira Ashvane — The Brine & Barrel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THEME — matches landing-page/index.html
+   ============================================================ */
+:root {
+  --color-bg-deep: #0a0a0f;
+  --color-bg: #12121a;
+  --color-gold: #d4a545;
+  --color-gold-light: #e8c36a;
+  --color-gold-dim: #b8923a;
+  --color-text: #e0ddd5;
+  --color-text-muted: #9a9690;
+  --color-text-heading: #f0ece4;
+  --font-heading: 'Cinzel', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* ============================================================
+     PORTRAIT IMAGE SWAP
+     ============================================================
+     To use a real portrait, set this to the image path:
+       --portrait-image: url('mira-portrait.png');
+     Then remove or comment out the SVG silhouette in the HTML.
+     ============================================================ */
+  --portrait-image: url('mira-portrait.png');
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--color-bg-deep);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  cursor: none;
+}
+
+/* ============================================================
+   VIGNETTE OVERLAY
+   ============================================================ */
+#vignette {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  background: radial-gradient(ellipse 70% 60% at 50% 45%, transparent 0%, rgba(10,10,15,0.4) 60%, rgba(10,10,15,0.85) 100%);
+}
+
+/* ============================================================
+   EMBER PARTICLE CANVAS
+   ============================================================ */
+#embers {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ============================================================
+   MAIN STAGE LAYOUT
+   ============================================================ */
+#stage {
+  position: relative;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%; height: 100%;
+  padding: 2rem;
+}
+
+/* ============================================================
+   LOCATION BANNER
+   ============================================================ */
+#location {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+  opacity: 0.7;
+  margin-bottom: 1.8rem;
+}
+
+/* ============================================================
+   PORTRAIT
+   ============================================================ */
+#portrait-wrap {
+  position: relative;
+  width: 220px; height: 220px;
+  margin-bottom: 2rem;
+}
+
+/* Glow ring */
+#portrait-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,165,69,0.25) 0%, transparent 70%);
+  animation: glow-idle 4s ease-in-out infinite;
+  transition: opacity 0.4s ease;
+}
+
+#portrait-wrap.speaking::before {
+  animation: glow-speak 1.2s ease-in-out infinite;
+}
+
+@keyframes glow-idle {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.04); }
+}
+
+@keyframes glow-speak {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+/* Ring border */
+#portrait-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--color-gold);
+  opacity: 0.5;
+}
+
+/* Portrait circle */
+#portrait {
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* If a portrait image is set via CSS variable */
+#portrait.has-image {
+  background-image: var(--portrait-image);
+  background-size: cover;
+  background-position: center;
+}
+
+/* SVG silhouette placeholder */
+#portrait svg {
+  width: 140px; height: 140px;
+  opacity: 0.35;
+}
+
+/* ============================================================
+   WAVEFORM BARS
+   ============================================================ */
+#waveform {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  height: 28px;
+  margin-bottom: 2.2rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#waveform.active {
+  opacity: 1;
+}
+
+.wave-bar {
+  width: 3px;
+  background: var(--color-gold);
+  border-radius: 2px;
+  animation: wave-bar 0.8s ease-in-out infinite;
+  opacity: 0.7;
+}
+
+@keyframes wave-bar {
+  0%, 100% { height: 4px; }
+  50% { height: var(--bar-height, 20px); }
+}
+
+/* ============================================================
+   SPEAKER LABEL
+   ============================================================ */
+#speaker {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  min-height: 1.2em;
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+#speaker.player {
+  color: var(--color-text-muted);
+}
+
+#speaker.mira {
+  color: var(--color-gold);
+}
+
+/* ============================================================
+   CAPTION AREA
+   ============================================================ */
+#caption-area {
+  max-width: 680px;
+  text-align: center;
+  min-height: 4.5em;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+#caption {
+  font-family: var(--font-body);
+  font-size: 1.35rem;
+  line-height: 1.7;
+  color: var(--color-text-heading);
+  font-weight: 400;
+  transition: opacity 0.35s ease;
+}
+
+#caption .word {
+  display: inline;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+#caption .word.visible {
+  opacity: 1;
+}
+
+/* ============================================================
+   DM CONTROL NOTIFICATION
+   ============================================================ */
+#dm-notify {
+  position: fixed;
+  top: 2.5rem;
+  right: 2.5rem;
+  z-index: 25;
+  background: rgba(20, 20, 30, 0.92);
+  border: 1px solid rgba(212, 165, 69, 0.4);
+  border-radius: 8px;
+  padding: 0.9rem 1.4rem;
+  max-width: 320px;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+#dm-notify.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+#dm-notify-label {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+  margin-bottom: 0.4rem;
+}
+
+#dm-notify-text {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-heading);
+  line-height: 1.5;
+}
+
+#dm-notify-text strong {
+  color: var(--color-gold);
+}
+
+/* ============================================================
+   DICE ROLL OVERLAY
+   ============================================================ */
+#dice-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  z-index: 30;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+
+#dice-overlay.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+#dice-check-name {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.6rem;
+}
+
+#dice-result {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+  text-shadow: 0 0 30px rgba(212, 165, 69, 0.4);
+}
+
+#dice-dc {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.6rem;
+}
+
+#dice-outcome {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.3rem 1.2rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+#dice-outcome.success {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+#dice-outcome.failure {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+/* Dice roll number animation */
+@keyframes dice-land {
+  0% { transform: scale(1.4); opacity: 0; }
+  60% { transform: scale(0.95); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+#dice-result.animate {
+  animation: dice-land 0.4s ease-out;
+}
+
+/* ============================================================
+   SCENE INDICATOR
+   ============================================================ */
+#scene-indicator {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.6rem;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#scene-indicator.show {
+  opacity: 1;
+}
+
+.scene-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(212,165,69,0.25);
+  transition: background 0.3s ease;
+}
+
+.scene-dot.active {
+  background: var(--color-gold);
+}
+
+/* ============================================================
+   CONTROLS HINT (fades away)
+   ============================================================ */
+#controls-hint {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  opacity: 0.5;
+  z-index: 20;
+  font-family: var(--font-body);
+  line-height: 1.6;
+  text-align: right;
+  transition: opacity 1s ease;
+}
+</style>
+</head>
+<body>
+
+<!-- Vignette -->
+<div id="vignette"></div>
+
+<!-- Ember particles -->
+<canvas id="embers"></canvas>
+
+<!-- Main stage -->
+<div id="stage">
+  <div id="location">The Brine &amp; Barrel</div>
+
+  <div id="portrait-wrap">
+    <div id="portrait-ring"></div>
+    <div id="portrait" class="has-image"></div>
+  </div>
+
+  <!-- Waveform bars -->
+  <div id="waveform"></div>
+
+  <!-- Speaker label -->
+  <div id="speaker"></div>
+
+  <!-- Caption -->
+  <div id="caption-area">
+    <div id="caption"></div>
+  </div>
+</div>
+
+<!-- Progress dots -->
+<div id="scene-indicator"></div>
+
+<!-- DM control notification (top-right) -->
+<div id="dm-notify">
+  <div id="dm-notify-label">DM Control</div>
+  <div id="dm-notify-text"></div>
+</div>
+
+<!-- Dice roll overlay (center) -->
+<div id="dice-overlay">
+  <div id="dice-check-name"></div>
+  <div id="dice-result"></div>
+  <div id="dice-dc"></div>
+  <div id="dice-outcome"></div>
+</div>
+
+<!-- Controls hint — fades after first interaction -->
+<div id="controls-hint">
+  SPACE — next line &nbsp;|&nbsp; BACKSPACE — back<br>
+  S — speaking &nbsp;|&nbsp; M — ambiance &nbsp;|&nbsp; F — fullscreen<br>
+  D — DM control &nbsp;|&nbsp; C — dice roll<br>
+  1 / 2 / 3 — jump to scene &nbsp;|&nbsp; R — reset
+</div>
+
+<!--
+============================================================
+IMAGE GENERATION PROMPT (for Midjourney / DALL-E)
+============================================================
+Copy and paste this into your image generator:
+
+"Portrait of a weathered human woman in her mid-forties, warm brown skin,
+sharp intelligent eyes, slight knowing smile, short-cropped greying hair,
+small gold hoop earring. Tavern owner and former smuggler. Lit by warm
+firelight from below-left, dark moody background. Oil painting style,
+fantasy RPG character portrait. Dark palette with gold and amber highlights.
+Circular crop composition, dramatic chiaroscuro lighting. --ar 1:1 --style raw"
+
+After generating, save as mira-portrait.png in this directory and update:
+  --portrait-image: url('mira-portrait.png');
+in the :root CSS block above.
+============================================================
+
+============================================================
+RECORDING DIRECTOR'S GUIDE
+============================================================
+Loom recording script — step by step:
+
+SETUP:
+1. Open demo-stage.html in Chrome
+2. Press F for fullscreen
+3. Start Loom recording (capture full screen)
+4. Wait 2 seconds for the viewer to take in the scene
+
+SCENE 1 — "The Rumor" (casual, establishing):
+5. Press M to start tavern ambiance
+6. Wait 1 second
+7. Press SPACE — Player line appears ("We just got into town...")
+8. Wait 2 seconds (read time)
+9. Press S to activate speaking animation
+10. Press SPACE — Mira responds ("Interesting? Always...")
+11. Wait 4-5 seconds (let the typing finish, viewer reads)
+12. Press S to deactivate speaking
+13. Press SPACE — Player asks ("Why would the guild lie?")
+14. Wait 2 seconds
+15. Press S to activate speaking
+16. Press SPACE — Mira's hook ("Now that's a question...")
+17. Wait 3 seconds
+18. Press S to deactivate speaking
+
+SCENE 2 — "The Secret" (tenser):
+19. Press 2 to jump to Scene 2
+20. Wait 1 second
+21. Press SPACE — Player confronts Mira ("We know someone's been asking...")
+22. Wait 3 seconds
+23. Press S to activate speaking
+24. Press SPACE — Mira deflects ("I know a lot of things...")
+25. Wait 3 seconds
+26. Press S to deactivate
+27. Press SPACE — Player pushes ("We're not strangers...")
+28. Wait 2 seconds
+29. Press S to activate speaking
+30. Press SPACE — Mira reveals ("His name is Renn...")
+31. Wait 5 seconds (this is the big reveal — let it breathe)
+32. Press S to deactivate
+
+SCENE 3 — "The Pushback" (dramatic):
+33. Press 3 to jump to Scene 3
+34. Wait 1 second
+35. Press SPACE — Player threatens ("Tell me what you know...")
+36. Wait 2 seconds
+37. Press S to activate speaking
+38. Press SPACE — Mira fires back ("I've run this tavern twelve years...")
+39. Wait 4 seconds
+40. Press SPACE — Mira's ultimatum ("Now. You can sit down...")
+41. Wait 5 seconds (let it land)
+42. Press S to deactivate
+
+OUTRO:
+43. Wait 3 seconds on the final frame
+44. Stop Loom recording
+45. Press M to stop ambiance
+
+Total recording time: ~90 seconds
+============================================================
+-->
+
+<script>
+// ============================================================
+// DEMO SEQUENCE — linear, one Space press per step
+// ============================================================
+// Types:
+//   caption  — show speaker label + typed text, auto-toggles speaking for Mira
+//   dm       — DM control notification (top-right)
+//   dice     — dice roll overlay (center)
+//   end      — final beat, hold here
+//
+// SUGGESTED EDIT POINTS marked with ✂ — cut the audio here to tighten
+// ============================================================
+const SEQUENCE = [
+  // --- Opening: establish the tavern ---
+  { type: 'caption', speaker: 'mira',   text: "Evening, traveler. You look like you've carried a heavy load today — care to set it down over a pint?" },
+  { type: 'caption', speaker: 'player', text: 'Give me your strongest drink and the whispers on the wind.' },
+  { type: 'caption', speaker: 'mira',   text: "I've got a rum that'll warm you from the inside — that and the gossip comes at a price. Tell me something worth my while." },
+
+  // --- The negotiation: shows transactional personality ---
+  { type: 'caption', speaker: 'player', text: "I've got three copper coins here. How does that sound?" },
+  { type: 'caption', speaker: 'mira',   text: "Three coppers will buy you the rum, but whispers cost more than coins. Got a story, a secret, something worth trading?" },
+
+  // ✂ Cut the Afrikaans/confused section from audio (0:34–0:50)
+
+  // --- The hook: Aldara's Promise ---
+  { type: 'caption', speaker: 'player', text: "Well, I hear there's some talk about the ship that's just left town." },
+  { type: 'caption', speaker: 'mira',   text: "Might be the Aldara's Promise you're hinting at — gone three days now, and tales differ on her course. What exactly did you hear?" },
+  { type: 'caption', speaker: 'player', text: "I heard the sailors are saying south and the guild is saying east. What are you hearing?" },
+  { type: 'caption', speaker: 'mira',   text: "I'm with the sailors on this one — they say she went south, and my gut agrees. That's as much as your three coppers will buy, love." },
+
+  // --- Locked knowledge: she won't give it up cheap ---
+  { type: 'caption', speaker: 'player', text: "What's the guild hiding?" },
+  { type: 'caption', speaker: 'mira',   text: "That's a question worth more than spare change. Bring me something substantial, and we'll talk guild secrets." },
+
+  // ✂ Cut the "Hmm" / "Take your time" pause from audio (1:36–1:58)
+
+  // --- The breakthrough: player gets creative ---
+  { type: 'caption', speaker: 'player', text: 'How about I buy a round for the whole tavern?' },
+
+  // DM calls for a persuasion check behind the scenes
+  { type: 'dm',   text: 'Persuasion attempt detected — <strong>calling for a roll</strong>' },
+  { type: 'dice', name: 'Persuasion Check', dc: 14, roll: 17, outcome: 'success' },
+
+  // DM unlocks the topic after the successful roll
+  { type: 'dm',   text: 'Check passed — topic unlocked: <strong>Guild secrets</strong>' },
+
+  { type: 'caption', speaker: 'mira',   text: "A round for the house buys you a better seat at the table. Pay up, and we'll see how generous I'm feeling." },
+  { type: 'caption', speaker: 'player', text: 'Here it is.' },
+
+  // --- The payoff: she reveals what she knows ---
+  { type: 'caption', speaker: 'mira',   text: "Appreciate the gesture. The Guild claims east to cover their tracks, but those in the know are watching the southern currents." },
+
+  // ✂ Cut the east/Sunken Reach tangent from audio (2:23–2:47)
+  // ✂ Cut the "interesting life on the water" from audio (2:52–3:00)
+
+  // --- The wall: player pushes too far ---
+  { type: 'caption', speaker: 'player', text: "I hear you owe some scary people some money." },
+
+  // DM has this topic locked — she deflects
+  { type: 'dm',   text: 'Locked topic probed — <strong>NPC will deflect</strong>' },
+
+  // --- THE END — cut here. Mic drop. ---
+  { type: 'caption', speaker: 'mira',   text: "Careful, love. Talk like that can sour a drink." },
+  { type: 'end' },
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let seqIndex = -1;
+let isSpeaking = false;
+let ambianceOn = false;
+let typingTimeout = null;
+let hintVisible = true;
+
+// DOM
+const $speaker = document.getElementById('speaker');
+const $caption = document.getElementById('caption');
+const $waveform = document.getElementById('waveform');
+const $portraitWrap = document.getElementById('portrait-wrap');
+const $location = document.getElementById('location');
+const $sceneIndicator = document.getElementById('scene-indicator');
+const $controlsHint = document.getElementById('controls-hint');
+const sceneDots = document.querySelectorAll('.scene-dot');
+
+// ============================================================
+// WAVEFORM BARS SETUP
+// ============================================================
+(function initWaveform() {
+  const count = 24;
+  for (let i = 0; i < count; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'wave-bar';
+    const h = 6 + Math.random() * 18;
+    bar.style.setProperty('--bar-height', h + 'px');
+    bar.style.animationDelay = (Math.random() * 0.8) + 's';
+    bar.style.animationDuration = (0.5 + Math.random() * 0.6) + 's';
+    $waveform.appendChild(bar);
+  }
+})();
+
+// ============================================================
+// TYPING ANIMATION (word-by-word)
+// ============================================================
+function showCaption(speaker, text, callback) {
+  // Clear any pending typing
+  if (typingTimeout) { clearTimeout(typingTimeout); typingTimeout = null; }
+
+  // Fade out current
+  $caption.style.opacity = '0';
+
+  setTimeout(() => {
+    // Set speaker label
+    $speaker.textContent = speaker === 'mira' ? 'MIRA' : 'PLAYER';
+    $speaker.className = speaker;
+
+    // Build word spans
+    const words = text.split(/(\s+)/); // keep whitespace
+    $caption.innerHTML = '';
+    const spans = [];
+    words.forEach(w => {
+      if (/^\s+$/.test(w)) {
+        $caption.appendChild(document.createTextNode(w));
+      } else {
+        const span = document.createElement('span');
+        span.className = 'word';
+        span.textContent = w;
+        $caption.appendChild(span);
+        spans.push(span);
+      }
+    });
+
+    $caption.style.opacity = '1';
+
+    // Reveal words with natural cadence
+    let i = 0;
+    function revealNext() {
+      if (i >= spans.length) {
+        if (callback) callback();
+        return;
+      }
+      spans[i].classList.add('visible');
+      i++;
+      // Vary timing: longer pause after punctuation
+      const prev = spans[i - 1]?.textContent || '';
+      let delay = 55 + Math.random() * 35; // 55-90ms base
+      if (/[.!?]$/.test(prev)) delay = 280 + Math.random() * 80;
+      else if (/[,;:\u2026]$/.test(prev)) delay = 160 + Math.random() * 60;
+      typingTimeout = setTimeout(revealNext, delay);
+    }
+    revealNext();
+  }, 350); // wait for fade-out
+}
+
+// ============================================================
+// SEQUENCE PLAYBACK — unified advance system
+// ============================================================
+let dmNotifyTimer = null;
+let diceTimer = null;
+const $dmNotify = document.getElementById('dm-notify');
+const $dmNotifyText = document.getElementById('dm-notify-text');
+const $diceOverlay = document.getElementById('dice-overlay');
+const $diceCheckName = document.getElementById('dice-check-name');
+const $diceResult = document.getElementById('dice-result');
+const $diceDc = document.getElementById('dice-dc');
+const $diceOutcome = document.getElementById('dice-outcome');
+
+function setSpeaking(on) {
+  isSpeaking = on;
+  $waveform.classList.toggle('active', on);
+  $portraitWrap.classList.toggle('speaking', on);
+}
+
+function showDmNotify(text) {
+  if (dmNotifyTimer) clearTimeout(dmNotifyTimer);
+  $dmNotifyText.innerHTML = text;
+  $dmNotify.classList.add('show');
+  dmNotifyTimer = setTimeout(() => $dmNotify.classList.remove('show'), 4000);
+}
+
+function showDiceRoll(check) {
+  if (diceTimer) clearTimeout(diceTimer);
+
+  $diceCheckName.textContent = check.name;
+  $diceDc.textContent = `DC ${check.dc}`;
+  $diceOutcome.textContent = check.outcome === 'success' ? 'Success' : 'Failure';
+  $diceOutcome.className = check.outcome;
+
+  $diceResult.textContent = '';
+  $diceOverlay.classList.add('show');
+
+  let ticks = 0;
+  const rollInterval = setInterval(() => {
+    $diceResult.textContent = Math.floor(Math.random() * 20) + 1;
+    ticks++;
+    if (ticks >= 8) {
+      clearInterval(rollInterval);
+      $diceResult.textContent = check.roll;
+      $diceResult.classList.remove('animate');
+      void $diceResult.offsetWidth;
+      $diceResult.classList.add('animate');
+    }
+  }, 70);
+
+  diceTimer = setTimeout(() => $diceOverlay.classList.remove('show'), 3500);
+}
+
+function advance() {
+  if (seqIndex + 1 >= SEQUENCE.length) return;
+  seqIndex++;
+  const step = SEQUENCE[seqIndex];
+
+  switch (step.type) {
+    case 'caption':
+      // Auto-toggle speaking: on for Mira, off for player
+      setSpeaking(step.speaker === 'mira');
+      showCaption(step.speaker, step.text);
+      break;
+
+    case 'dm':
+      showDmNotify(step.text);
+      break;
+
+    case 'dice':
+      showDiceRoll(step);
+      break;
+
+    case 'end':
+      // Final beat — turn off speaking, hold the scene
+      setSpeaking(false);
+      break;
+  }
+}
+
+function goBack() {
+  if (seqIndex <= 0) return;
+  // Walk back to the previous caption
+  seqIndex--;
+  while (seqIndex > 0 && SEQUENCE[seqIndex].type !== 'caption') {
+    seqIndex--;
+  }
+  const step = SEQUENCE[seqIndex];
+  if (step.type === 'caption') {
+    setSpeaking(step.speaker === 'mira');
+    showCaption(step.speaker, step.text);
+  }
+  // Hide any active overlays
+  $dmNotify.classList.remove('show');
+  $diceOverlay.classList.remove('show');
+}
+
+function resetAll() {
+  seqIndex = -1;
+  setSpeaking(false);
+  if (typingTimeout) { clearTimeout(typingTimeout); typingTimeout = null; }
+  $caption.style.opacity = '0';
+  $caption.innerHTML = '';
+  $speaker.textContent = '';
+  $dmNotify.classList.remove('show');
+  $diceOverlay.classList.remove('show');
+}
+
+// ============================================================
+// FULLSCREEN
+// ============================================================
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+
+// ============================================================
+// KEYBOARD CONTROLS
+// ============================================================
+document.addEventListener('keydown', (e) => {
+  if (hintVisible) {
+    hintVisible = false;
+    $controlsHint.style.opacity = '0';
+  }
+
+  switch (e.code) {
+    case 'Space':
+      e.preventDefault();
+      advance();
+      break;
+    case 'Backspace':
+      e.preventDefault();
+      goBack();
+      break;
+    case 'KeyR':
+      resetAll();
+      break;
+    case 'KeyM':
+      toggleAmbiance();
+      break;
+    case 'KeyF':
+      toggleFullscreen();
+      break;
+    case 'KeyS':
+      // Manual speaking toggle still available if needed
+      setSpeaking(!isSpeaking);
+      break;
+  }
+});
+
+// ============================================================
+// EMBER PARTICLES (Canvas)
+// ============================================================
+(function initEmbers() {
+  const canvas = document.getElementById('embers');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  const embers = [];
+  const EMBER_COUNT = 70;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Ember {
+    constructor() { this.reset(true); }
+    reset(randomY) {
+      this.x = Math.random() * W;
+      this.y = randomY ? Math.random() * H : H + 10;
+      this.size = 1.5 + Math.random() * 3.5;
+      this.speedY = -(0.2 + Math.random() * 0.5);
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.opacity = 0.35 + Math.random() * 0.5;
+      this.life = 0;
+      this.maxLife = 300 + Math.random() * 400;
+      this.wobbleSpeed = 0.005 + Math.random() * 0.01;
+      this.wobbleAmp = 15 + Math.random() * 25;
+      this.startX = this.x;
+    }
+    update() {
+      this.life++;
+      this.y += this.speedY;
+      this.x = this.startX + Math.sin(this.life * this.wobbleSpeed) * this.wobbleAmp;
+      // Fade in/out
+      const progress = this.life / this.maxLife;
+      if (progress < 0.1) this.currentOpacity = this.opacity * (progress / 0.1);
+      else if (progress > 0.7) this.currentOpacity = this.opacity * (1 - (progress - 0.7) / 0.3);
+      else this.currentOpacity = this.opacity;
+
+      if (this.life >= this.maxLife || this.y < -20) this.reset(false);
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      // Warm gradient: orange core, reddish edge
+      const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+      g.addColorStop(0, `rgba(255, 200, 80, ${this.currentOpacity})`);
+      g.addColorStop(0.5, `rgba(255, 140, 40, ${this.currentOpacity * 0.6})`);
+      g.addColorStop(1, `rgba(200, 80, 20, ${this.currentOpacity * 0.15})`);
+      ctx.fillStyle = g;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < EMBER_COUNT; i++) embers.push(new Ember());
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    embers.forEach(e => { e.update(); e.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// ============================================================
+// TAVERN AMBIANCE (Web Audio API — procedural, multi-layer)
+// ============================================================
+// Architecture:
+//   Fire: brownian rumble + pink noise hiss + discrete crackle events + ember sparkle
+//   Room: layered sub-oscillators with slow detune + filtered brownian bed
+//   Wind: 3 independently LFO-modulated noise layers at different bands
+//   Glue: tanh waveshaper for warmth on fire bus
+// ============================================================
+let audioCtx = null;
+let ambianceNodes = null;
+let crackleTimer = null;
+let emberTimer = null;
+
+// --- Noise buffer generators ---
+
+function createBrownianBuffer(ctx, seconds) {
+  const len = ctx.sampleRate * seconds;
+  const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+  const d = buf.getChannelData(0);
+  let last = 0;
+  for (let i = 0; i < len; i++) {
+    const white = Math.random() * 2 - 1;
+    d[i] = (last + 0.02 * white) / 1.02;
+    last = d[i];
+    d[i] *= 3.5;
+  }
+  return buf;
+}
+
+function createPinkBuffer(ctx, seconds) {
+  const len = ctx.sampleRate * seconds;
+  const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+  const d = buf.getChannelData(0);
+  let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+  for (let i = 0; i < len; i++) {
+    const w = Math.random() * 2 - 1;
+    b0 = 0.99886*b0 + w*0.0555179;
+    b1 = 0.99332*b1 + w*0.0750759;
+    b2 = 0.96900*b2 + w*0.1538520;
+    b3 = 0.86650*b3 + w*0.3104856;
+    b4 = 0.55000*b4 + w*0.5329522;
+    b5 = -0.7616*b5 - w*0.0168980;
+    d[i] = (b0+b1+b2+b3+b4+b5+b6+w*0.5362) * 0.11;
+    b6 = w * 0.115926;
+  }
+  return buf;
+}
+
+// tanh waveshaper for warmth
+function createWarmthCurve(amount) {
+  const n = 44100;
+  const curve = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    const x = (i * 2) / n - 1;
+    curve[i] = Math.tanh(amount * x);
+  }
+  return curve;
+}
+
+function createAmbiance() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  audioCtx = ctx;
+
+  const master = ctx.createGain();
+  master.gain.value = 0;
+  master.connect(ctx.destination);
+
+  // ---- FIRE BUS (with waveshaper warmth) ----
+  const fireBus = ctx.createGain();
+  fireBus.gain.value = 1.0;
+  const warmth = ctx.createWaveShaper();
+  warmth.curve = createWarmthCurve(1.5);
+  warmth.oversample = '2x';
+  fireBus.connect(warmth);
+  warmth.connect(master);
+
+  // Layer A: Combustion base — brownian noise, lowpassed <250Hz, with breathing LFO
+  const baseSource = ctx.createBufferSource();
+  baseSource.buffer = createBrownianBuffer(ctx, 3);
+  baseSource.loop = true;
+  const baseLP = ctx.createBiquadFilter();
+  baseLP.type = 'lowpass';
+  baseLP.frequency.value = 250;
+  baseLP.Q.value = 0.7;
+  const baseGain = ctx.createGain();
+  baseGain.gain.value = 0.13;
+  // Breathing LFO on filter frequency
+  const baseLFO = ctx.createOscillator();
+  baseLFO.frequency.value = 0.15;
+  const baseLFOGain = ctx.createGain();
+  baseLFOGain.gain.value = 40;
+  baseLFO.connect(baseLFOGain);
+  baseLFOGain.connect(baseLP.frequency);
+  baseLFO.start();
+  // Amplitude breathing
+  const baseAmpLFO = ctx.createOscillator();
+  baseAmpLFO.frequency.value = 0.08;
+  const baseAmpGain = ctx.createGain();
+  baseAmpGain.gain.value = 0.035;
+  baseAmpLFO.connect(baseAmpGain);
+  baseAmpGain.connect(baseGain.gain);
+  baseAmpLFO.start();
+  baseSource.connect(baseLP);
+  baseLP.connect(baseGain);
+  baseGain.connect(fireBus);
+  baseSource.start();
+
+  // Layer B: Mid hiss — pink noise, bandpassed 200-3kHz
+  const hissSource = ctx.createBufferSource();
+  hissSource.buffer = createPinkBuffer(ctx, 3);
+  hissSource.loop = true;
+  const hissBP = ctx.createBiquadFilter();
+  hissBP.type = 'bandpass';
+  hissBP.frequency.value = 800;
+  hissBP.Q.value = 0.5;
+  const hissGain = ctx.createGain();
+  hissGain.gain.value = 0.045;
+  hissSource.connect(hissBP);
+  hissBP.connect(hissGain);
+  hissGain.connect(fireBus);
+  hissSource.start();
+
+  // Layer C: Discrete crackle events — scheduled popcorn noise
+  // Each crackle is a tiny noise burst with sharp attack + exponential decay
+  function scheduleCrackle(time) {
+    const duration = 0.005 + Math.random() * 0.055; // 5-60ms
+    const bufLen = Math.ceil(duration * ctx.sampleRate);
+    const buf = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < bufLen; i++) d[i] = Math.random() * 2 - 1;
+
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+
+    const filt = ctx.createBiquadFilter();
+    filt.type = 'bandpass';
+    // Randomize frequency band: low cracks, mid snaps, high pops
+    const roll = Math.random();
+    if (roll < 0.4) {
+      filt.frequency.value = 300 + Math.random() * 500;
+      filt.Q.value = 2 + Math.random() * 4;
+    } else if (roll < 0.8) {
+      filt.frequency.value = 1000 + Math.random() * 3000;
+      filt.Q.value = 1 + Math.random() * 3;
+    } else {
+      filt.frequency.value = 4000 + Math.random() * 4000;
+      filt.Q.value = 3 + Math.random() * 8;
+    }
+
+    const gain = ctx.createGain();
+    const peak = 0.06 + Math.random() * 0.2;
+    gain.gain.setValueAtTime(0, time);
+    gain.gain.linearRampToValueAtTime(peak, time + 0.001); // 1ms attack
+    gain.gain.exponentialRampToValueAtTime(0.001, time + duration);
+
+    src.connect(filt);
+    filt.connect(gain);
+    gain.connect(fireBus);
+    src.start(time);
+    src.stop(time + duration + 0.01);
+  }
+
+  // Crackle scheduler: clusters of 1-3 pops at random intervals
+  function crackleLoop() {
+    if (!ambianceOn) return;
+    const now = ctx.currentTime;
+    const burstCount = Math.random() < 0.3 ? Math.floor(2 + Math.random() * 2) : 1;
+    for (let i = 0; i < burstCount; i++) {
+      scheduleCrackle(now + i * (0.01 + Math.random() * 0.03));
+    }
+    crackleTimer = setTimeout(crackleLoop, 60 + Math.random() * 300);
+  }
+
+  // Layer D: Ember sparkle — very short high-frequency sizzles
+  function scheduleEmber(time) {
+    const duration = 0.002 + Math.random() * 0.012;
+    const bufLen = Math.ceil(duration * ctx.sampleRate);
+    const buf = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < bufLen; i++) d[i] = Math.random() * 2 - 1;
+
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    const hp = ctx.createBiquadFilter();
+    hp.type = 'highpass';
+    hp.frequency.value = 6000 + Math.random() * 6000;
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0, time);
+    gain.gain.linearRampToValueAtTime(0.02 + Math.random() * 0.03, time + 0.0005);
+    gain.gain.exponentialRampToValueAtTime(0.001, time + duration);
+    src.connect(hp);
+    hp.connect(gain);
+    gain.connect(fireBus);
+    src.start(time);
+    src.stop(time + duration + 0.01);
+  }
+
+  function emberLoop() {
+    if (!ambianceOn) return;
+    scheduleEmber(ctx.currentTime);
+    emberTimer = setTimeout(emberLoop, 100 + Math.random() * 500);
+  }
+
+  // ---- ROOM TONE ----
+  // Layered detuned sub-oscillators for warm tonal foundation
+  const roomBus = ctx.createGain();
+  roomBus.gain.value = 1.0;
+  roomBus.connect(master);
+
+  const roomFreqs = [55, 82.5, 110];
+  const roomVols = [0.035, 0.02, 0.012];
+  roomFreqs.forEach((freq, i) => {
+    const osc = ctx.createOscillator();
+    osc.type = i === 0 ? 'sine' : 'triangle';
+    osc.frequency.value = freq;
+    // Slow random detune for organic drift
+    const detLFO = ctx.createOscillator();
+    const detGain = ctx.createGain();
+    detLFO.frequency.value = 0.05 + Math.random() * 0.1;
+    detGain.gain.value = 3 + Math.random() * 5;
+    detLFO.connect(detGain);
+    detGain.connect(osc.detune);
+    detLFO.start();
+    // Slow amplitude modulation
+    const ampLFO = ctx.createOscillator();
+    const ampGain = ctx.createGain();
+    ampLFO.frequency.value = 0.03 + Math.random() * 0.07;
+    ampGain.gain.value = roomVols[i] * 0.3;
+    ampLFO.connect(ampGain);
+    const g = ctx.createGain();
+    g.gain.value = roomVols[i];
+    ampGain.connect(g.gain);
+    ampLFO.start();
+    osc.connect(g);
+    g.connect(roomBus);
+    osc.start();
+  });
+
+  // Subtle brownian noise bed under 150Hz
+  const roomNoiseSource = ctx.createBufferSource();
+  roomNoiseSource.buffer = createBrownianBuffer(ctx, 4);
+  roomNoiseSource.loop = true;
+  const roomNoiseLP = ctx.createBiquadFilter();
+  roomNoiseLP.type = 'lowpass';
+  roomNoiseLP.frequency.value = 150;
+  roomNoiseLP.Q.value = 0.5;
+  const roomNoiseGain = ctx.createGain();
+  roomNoiseGain.gain.value = 0.025;
+  roomNoiseSource.connect(roomNoiseLP);
+  roomNoiseLP.connect(roomNoiseGain);
+  roomNoiseGain.connect(roomBus);
+  roomNoiseSource.start();
+
+  // ---- WIND (3 independent layers with incommensurate LFOs) ----
+  function createWindLayer(cfg) {
+    const src = ctx.createBufferSource();
+    src.buffer = createPinkBuffer(ctx, 5);
+    src.loop = true;
+
+    const filt = ctx.createBiquadFilter();
+    filt.type = cfg.filterType || 'bandpass';
+    filt.frequency.value = cfg.centerFreq;
+    filt.Q.value = cfg.Q;
+
+    // Frequency sweep LFO (the "whoosh")
+    const freqLFO = ctx.createOscillator();
+    freqLFO.frequency.value = cfg.lfoFreq;
+    const freqLFOGain = ctx.createGain();
+    freqLFOGain.gain.value = cfg.lfoDepth;
+    freqLFO.connect(freqLFOGain);
+    freqLFOGain.connect(filt.frequency);
+    freqLFO.start();
+
+    // Amplitude gust LFO
+    const gain = ctx.createGain();
+    gain.gain.value = cfg.volume;
+    const ampLFO = ctx.createOscillator();
+    ampLFO.frequency.value = cfg.ampLfoFreq;
+    const ampLFOGain = ctx.createGain();
+    ampLFOGain.gain.value = cfg.volume * cfg.ampLfoDepth;
+    ampLFO.connect(ampLFOGain);
+    ampLFOGain.connect(gain.gain);
+    ampLFO.start();
+
+    src.connect(filt);
+    filt.connect(gain);
+    gain.connect(master);
+    src.start();
+  }
+
+  // Low moan (building/chimney)
+  createWindLayer({
+    filterType: 'bandpass', centerFreq: 200, Q: 2.0,
+    lfoFreq: 0.047, lfoDepth: 80,
+    ampLfoFreq: 0.031, ampLfoDepth: 0.5, volume: 0.03
+  });
+  // Mid whistle (gaps in walls)
+  createWindLayer({
+    filterType: 'bandpass', centerFreq: 800, Q: 3.0,
+    lfoFreq: 0.117, lfoDepth: 300,
+    ampLfoFreq: 0.079, ampLfoDepth: 0.6, volume: 0.018
+  });
+  // High air movement
+  createWindLayer({
+    filterType: 'lowpass', centerFreq: 3000, Q: 0.5,
+    lfoFreq: 0.183, lfoDepth: 1000,
+    ampLfoFreq: 0.053, ampLfoDepth: 0.4, volume: 0.012
+  });
+
+  // Start crackle and ember schedulers
+  crackleLoop();
+  emberLoop();
+
+  return {
+    master,
+    ctx,
+    restartSchedulers() { crackleLoop(); emberLoop(); }
+  };
+}
+
+function toggleAmbiance() {
+  if (!ambianceOn) {
+    ambianceOn = true;
+    if (!ambianceNodes) {
+      ambianceNodes = createAmbiance();
+    } else {
+      // Restart event schedulers that stopped when toggled off
+      ambianceNodes.restartSchedulers();
+    }
+    // Fade in
+    const c = ambianceNodes.ctx;
+    ambianceNodes.master.gain.cancelScheduledValues(c.currentTime);
+    ambianceNodes.master.gain.setValueAtTime(ambianceNodes.master.gain.value, c.currentTime);
+    ambianceNodes.master.gain.linearRampToValueAtTime(1.0, c.currentTime + 2.0);
+  } else {
+    ambianceOn = false;
+    // Fade out
+    const c = ambianceNodes.ctx;
+    ambianceNodes.master.gain.cancelScheduledValues(c.currentTime);
+    ambianceNodes.master.gain.setValueAtTime(ambianceNodes.master.gain.value, c.currentTime);
+    ambianceNodes.master.gain.linearRampToValueAtTime(0, c.currentTime + 1.5);
+    // Schedulers will self-terminate (they check ambianceOn), but clear pending timers
+    if (crackleTimer) { clearTimeout(crackleTimer); crackleTimer = null; }
+    if (emberTimer) { clearTimeout(emberTimer); emberTimer = null; }
+  }
+}
+
+// ============================================================
+// INIT — show scene indicator briefly
+// ============================================================
+// Ready — press F for fullscreen, M for ambiance, Space to begin.
+</script>
+</body>
+</html>
