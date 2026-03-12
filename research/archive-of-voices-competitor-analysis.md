@@ -11,6 +11,20 @@ Archive of Voices Pro is a Foundry VTT module that gives NPCs AI-powered dialogu
 
 There's also a free version (Archive of Voices) that does text-only AI dialogue — no voice.
 
+### UX Flow
+1. DM enables the module + SocketLib dependency
+2. DM configures API key(s) in settings (or links Patreon for a hosted GPT proxy)
+3. DM or player clicks the robot icon in chat sidebar, selects an NPC token
+4. Types a question (or speaks it in Pro via browser-based voice capture)
+5. LLM generates an in-character response based on NPC personality + memory log
+6. In Pro: response is also sent to ElevenLabs, audio plays to players, MP3 saved locally
+7. Memory log updated in a Journal Entry automatically
+
+### Their Stated Philosophy
+> "The GM is always in control. AI features are optional, off by default, and only run when you initiate them. Nothing is created without your input. No hidden calls, no automatic generation, no surprises. Everything is editable. Responses are drafts — you can tweak, expand, or ignore them freely."
+
+This is notably similar to our DM-controls-everything principle. The difference is they state it but lack the architecture to enforce it (no knowledge locking, no DM review gates, no game mechanics integration).
+
 ---
 
 ## Features
@@ -84,14 +98,37 @@ Given the tiny install base, there's minimal public feedback. The complaints tha
 - **Memory:** Journal-based. NPC "remembers" via stored conversation logs. No vector search, no RAG, no hierarchical knowledge.
 - **Context assembly:** Simple prompt construction. No world/faction/individual layer system.
 - **Foundry integration:** Token-based. Click NPC token to interact.
+- **Runtime:** Everything runs client-side within Foundry. No dedicated backend server. API calls made from the GM's browser, routed through SocketLib for multiplayer safety.
+- **Data storage:** Foundry Journal Entries for memory + MP3 files in world folder for audio.
+
+---
+
+## Foundry AI NPC Module Landscape
+
+Archive of Voices Pro is one of ~8 competing modules. None have significant adoption.
+
+| Module | LLM | TTS | STT | Memory | Status |
+|--------|-----|-----|-----|--------|--------|
+| **Archive of Voices Pro** | Multi-provider | ElevenLabs | Basic (browser) | Journal-based | Active |
+| **Talking Actors** | None | ElevenLabs | No | No | Active |
+| **VoiceGen** | None | ElevenLabs | No | No | Active (v11) |
+| **NOVA Multi-AI** | Multi-provider | ElevenLabs | No | Per-persona notes | Active |
+| **UnKenny** | Multi-provider | None | No | Basic | Unmaintained (dev seeking new owner) |
+| **Inworld Integration** | Inworld AI | ElevenLabs | No | Inworld-managed | Limited (1 NPC at a time) |
+| **RPGX AI Assistant** | Local (Ollama) | None | No | None | New (Nov 2025) |
+
+Archive of Voices Pro is the only one combining LLM + TTS + STT + memory in a single module.
 
 ---
 
 ## The Developer
 
-- **Solo developer:** Damond Shadowdrake
-- **Distribution:** Patreon-gated
-- **Maintenance:** Appears actively maintained (Foundry v12-v14 compatible)
+- **Solo developer:** Damond Shadowdrake (DamondSD on GitHub)
+- **Organization:** "Shadowdrake Creations" — described as "a small team of nerdy creators" but likely solo
+- **Background:** Has been running tabletop RPGs for almost 30 years. Built the tool to solve keeping dozens of NPCs consistent mid-session.
+- **Distribution:** Patreon-gated. Also has a Discord for supporters (not publicly indexed).
+- **Maintenance:** Active on Pro (v5.0.0 Oct 2025, v14-readiness ongoing). Free version on GitHub not updated since Jan 2025 with 2 open bugs unfixed.
+- **Other modules:** Also created "Archive of Observers" (cinematic play module)
 - **Resources:** One person. Limited ability to build the kind of pipeline infrastructure we're designing.
 
 ---
@@ -136,3 +173,18 @@ The risk is:
 - [ ] Monitor their Patreon for subscriber count / growth signals
 - [ ] Use their limitations as explicit differentiators in positioning ("Unlike existing tools, we do X, Y, Z")
 - [ ] Consider: is a Foundry module the right first platform, or should we ship standalone first and add Foundry integration later?
+
+---
+
+## Sources
+
+- [Archive of Voices Pro — Foundry VTT Package](https://foundryvtt.com/packages/archive-of-voices-pro)
+- [Archive of Voices (Free) — Foundry VTT Package](https://foundryvtt.com/packages/archive-of-voices)
+- [GitHub Repository (Free Version)](https://github.com/DamondSD/archive-of-voices)
+- [Shadowdrake Creations Patreon](https://www.patreon.com/ShadowdrakeCreations)
+- [Shadowdrake Creations — Foundry VTT Creator Page](https://foundryvtt.com/creators/shadowdrake-creations/)
+- [Talking Actors — Foundry VTT](https://foundryvtt.com/packages/acd-talking-actors)
+- [NOVA Multi-AI — Foundry VTT](https://foundryvtt.com/packages/nova-multiai)
+- [UnKenny — Foundry VTT](https://foundryvtt.com/packages/unkenny)
+- [Inworld AI Integration — Foundry VTT](https://foundryvtt.com/packages/inworldintegration)
+- [RPGX AI Assistant — Foundry VTT](https://foundryvtt.com/packages/rpgx-ai-assistant)
