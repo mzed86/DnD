@@ -56,7 +56,7 @@ This is notably similar to our DM-controls-everything principle. The difference 
 
 This is a BYOK (Bring Your Own Keys) model. Users must set up and manage their own API accounts with multiple providers.
 
-**Patron count:** Hidden on Patreon page. Not indexed on Graphtreon (threshold ~50 patrons). Estimated < 50, likely < 20.
+**Patron count:** 317 Patreon members (includes free followers + paying patrons). Paying patrons estimated 95–160. Gross revenue estimated $400–$1,500/month. Earnings hidden. Not indexed on Graphtreon.
 
 ---
 

@@ -62,12 +62,15 @@ Present across r/DnD, r/rpg, r/DMAcademy:
 
 ## 2. Patreon Subscriber Count — Archive of Voices Pro
 
-**Result: Hidden, but almost certainly tiny.**
+**Result: 317 Patreon members — larger than expected.**
 
 ### What We Found
 
-- Shadowdrake Creations Patreon page is **live and active** but does **not publicly display patron count**
-- **Not indexed on Graphtreon** or any Patreon tracker site — these typically only index creators with 50+ patrons
+- Shadowdrake Creations Patreon shows **317 members**
+- "Members" on Patreon includes both free followers and paying patrons — the actual paying count is lower but not publicly broken out
+- **Not indexed on Graphtreon** — returned 403, may be too small for their tracker or simply not yet indexed
+- Earnings are hidden — no dollar amount visible
+- 19 exclusive posts on Patreon
 - Zero Reddit threads, forum posts, or Discord messages mention the patron count
 - GitHub: 1 star on the free version
 
@@ -83,15 +86,15 @@ Our competitor analysis had the wrong entry price. Actual tiers:
 
 **Archive of Voices Pro requires $8.50/month minimum**, not $4.25.
 
-### Estimated Patron Count
+### Estimated Paying Patrons & Revenue
 
-**Likely < 50 patrons** (Graphtreon threshold), **possibly < 20** given:
-- 1 GitHub star on free version
-- Zero Reddit discussion threads
-- No YouTube reviews or demos
-- No Graphtreon indexing
+With 317 total members and a typical 30–50% free-to-paid ratio for niche Patreon creators:
+- **Estimated paying patrons: 95–160**
+- **Estimated gross revenue: $400–$1,500/month** (depending on tier distribution)
 
-**What this means:** The tool exists and people pay for it, but it hasn't found meaningful traction. This is consistent with a first-generation tool that validates demand but doesn't satisfy it.
+This is larger than the "< 50 patrons" initial estimate. 317 members for a niche Foundry VTT module with zero Reddit presence, 1 GitHub star, and no YouTube coverage is a meaningful signal — **people are finding and paying for this through the Foundry ecosystem and Patreon discovery alone.**
+
+**What this means:** The demand is real enough that ~100+ people pay $8.50+/month for a first-generation tool with 3-6s latency, BYOK complexity, and no knowledge locking. A better product at a competitive price has a real market to capture.
 
 ---
 
@@ -173,13 +176,13 @@ The TTRPG community is extremely sharing-oriented. When something works well at 
 1. **Cost sensitivity is the #1 barrier** — DMs balk at $20-40/month for a hobby tool
 2. **Anti-AI sentiment is real** — Must position carefully as "DM tool" not "DM replacement"
 3. **Latency must be solved** — Current tools at 3-6s per response break immersion. We need < 2s
-4. **Market is tiny** — If Archive of Voices Pro has < 50 patrons, the total addressable market for "DMs willing to pay for AI NPC voices" may be small
+4. **Market size unclear** — Archive of Voices Pro has ~317 Patreon members (~95-160 paying) which is more than expected, but still small in absolute terms
 5. **No proof anyone will pay our price** — Demand for the concept ≠ willingness to pay $15-30/month
 
 ### What We Still Don't Know
 
 - [ ] The Forge Bazaar install percentages (need manual check)
-- [ ] Exact Archive of Voices Pro patron count (hidden)
+- [ ] Exact Archive of Voices Pro *paying* patron count (317 total members, paid breakdown unknown)
 - [ ] Whether a polished, low-latency tool would shift the willingness-to-pay curve
 - [ ] Solo RPG market size and price sensitivity
 - [ ] How much latency reduction changes user perception (is 1.5s the threshold? 1s? Sub-second?)
@@ -189,7 +192,7 @@ The TTRPG community is extremely sharing-oriented. When something works well at 
 ## Sources
 
 - Reddit: r/DMAcademy, r/FoundryVTT, r/DnD, r/Solo_Roleplaying, r/rpg (multiple threads, 2024–2026)
-- Patreon: patreon.com/ShadowdrakeCreations (page live, patron count hidden)
-- Graphtreon: No index entry for Shadowdrake Creations
+- Patreon: patreon.com/ShadowdrakeCreations (317 members, earnings hidden)
+- Graphtreon: Not indexed (returned 403)
 - Foundry VTT: foundryvtt.com/packages/ (no public install metrics)
 - GitHub: github.com/DamondSD/archive-of-voices (1 star)
