@@ -131,6 +131,91 @@ Archive of Voices Pro is the only one combining LLM + TTS + STT + memory in a si
 
 ---
 
+## Deep Dive: ACD Talking Actors
+
+Most downloaded voice-related module in Foundry. Worth understanding because its 271k downloads validate demand for NPC voices — even though it solves a much simpler problem than what we're building.
+
+### What It Is
+
+A TTS playback tool. The DM types what an NPC says, and the module speaks it aloud via ElevenLabs. **No AI, no LLM, no dialogue generation.** The DM writes every word — the module just makes it audible in a distinct voice.
+
+Think of it as "ElevenLabs integration for Foundry's chat." A megaphone, not a brain.
+
+### How It Works
+
+1. DM enters ElevenLabs API key in module settings
+2. Opens Voice Settings dialog, assigns an ElevenLabs voice to each actor
+3. During play: selects NPC token, types `/talk Here is what I say` in chat
+4. Module sends text to ElevenLabs → audio plays for all players via SocketLib
+5. Can also voice journal read-aloud sections with per-section voice assignment
+
+### Key Features
+
+- **`/talk` chat command** — core UX for voicing NPCs mid-session
+- **Token HUD button** — alternative UI for entering and speaking text
+- **Journal read-aloud** — voice pre-written journal entries with voice macros
+- **Chat replay** — replays past speech from ElevenLabs' history cache, **doesn't consume quota** (clever cost optimization)
+- **Chat suppression** — optionally prevents spoken text from posting to chat log
+- **Third-party hooks** — API for other modules to trigger speech
+- **Narrator mode** — for scene descriptions (non-character speech)
+- **Localization** — English and German
+
+### Technical Details
+
+- **Client-side only** — plain JavaScript (86%), Handlebars templates (11%), CSS (3%). No build step, no TypeScript
+- **ElevenLabs only** — architecture described as "extensible for additional TTS providers" but only ElevenLabs shipped
+- **BYOK** — user provides their own ElevenLabs API key
+- **SocketLib** — routes audio to all connected players
+- **Spiritual successor** to "Elevenlabs for Foundry" by Vexthecollector
+
+### GitHub & Adoption
+
+- **GitHub:** 4 stars, 3 forks, 0 open issues, 80 commits
+- **License:** GPL-3.0 (open source, forkable)
+- **Releases:** 17 releases, latest v1.0.5 (Oct 2025)
+- **Downloads:** 271,557 (inflated by manifest checks — real installs are a fraction)
+- **Developer:** "acd-jake" — solo dev, no public identity beyond GitHub
+- **Community:** No Reddit threads or YouTube demos found. Low-profile module
+
+### Pricing
+
+- **Module:** Free (open source)
+- **ElevenLabs:** User pays own costs. Free tier ~10k chars/month; paid plans from ~$5/month
+- **Effective cost:** $0–$5+/month depending on ElevenLabs plan and usage
+
+### What It Tells Us
+
+| Signal | Implication |
+|--------|------------|
+| 271k downloads for a TTS-only tool | DMs want NPC voices badly enough to install a module and set up API keys |
+| Free module + paid API model | Users will tolerate BYOK if the module itself is free |
+| No AI conversation at all | The simplest possible voice solution still gets adoption — demand is real |
+| Chat replay from cache | Cost optimization matters to users — they care about per-session costs |
+| Zero community discussion | Adoption is silent — people install and use it without talking about it publicly |
+
+### Talking Actors vs Archive of Voices Pro vs This Project
+
+| | **Talking Actors** | **Archive of Voices Pro** | **This Project** |
+|---|---|---|---|
+| **Core function** | TTS playback (DM types) | AI dialogue + TTS | Full voice conversation engine |
+| **LLM** | None | Multi-provider | Claude primary, GPT-4o-mini fallback |
+| **TTS** | ElevenLabs only | ElevenLabs only | Tiered (Cartesia / ElevenLabs / Hume) |
+| **STT** | None | Basic/limited | Deepgram Nova-2 streaming |
+| **Memory** | None | Journal-based flat logs | 3-layer hierarchy + vector RAG |
+| **Knowledge locking** | N/A | No | Multi-layer protection |
+| **Game mechanics** | No | No | Dice rolls, commerce, info gating |
+| **DM types dialogue?** | Yes — every word | Optional — can type or let AI generate | No — player speaks, AI responds |
+| **Price** | Free + BYOK ElevenLabs | $8.50/mo + BYOK LLM + BYOK ElevenLabs | Subscription (all-inclusive) |
+| **Platform** | Foundry only | Foundry only | Platform-independent |
+| **Architecture** | Client-side JS | Client-side JS | Dedicated backend server |
+
+These three sit on a spectrum:
+1. **Talking Actors** = megaphone (DM writes, module speaks)
+2. **Archive of Voices Pro** = actor reading a script (AI writes, module speaks)
+3. **This project** = voice actor with a brain and rules (player speaks, AI responds in character under DM control)
+
+---
+
 ## The Developer
 
 - **Solo developer:** Damond Shadowdrake (DamondSD on GitHub)
