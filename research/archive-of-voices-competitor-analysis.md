@@ -45,13 +45,18 @@ This is notably similar to our DM-controls-everything principle. The difference 
 
 ## Pricing
 
-- **Module access:** Patreon subscription starting at ~$4.25/month
+- **Patreon tiers:**
+  - Amateur Voice Actor: $4.25/month — early access to free modules + chat only
+  - **Professional Voice Actor: $8.50/month** — Archive of Voices Pro access
+  - Master Voice Actor: $12.75/month — Pro + Archive of Observers
 - **On top of that, users pay their own API costs:**
   - LLM API (OpenAI/Claude/Gemini) — varies by usage
   - ElevenLabs TTS API — varies by usage
-- **Effective total cost:** ~$15-45/month depending on usage
+- **Effective total cost:** ~$20-50/month depending on usage
 
 This is a BYOK (Bring Your Own Keys) model. Users must set up and manage their own API accounts with multiple providers.
+
+**Patron count:** Hidden on Patreon page. Not indexed on Graphtreon (threshold ~50 patrons). Estimated < 50, likely < 20.
 
 ---
 
