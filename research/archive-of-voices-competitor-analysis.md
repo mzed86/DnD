@@ -110,19 +110,24 @@ Given the tiny install base, there's minimal public feedback. The complaints tha
 
 ## Foundry AI NPC Module Landscape
 
-Archive of Voices Pro is one of ~8 competing modules. None have significant adoption.
+Archive of Voices Pro is one of ~8 competing modules. None have significant adoption, though some show meaningful download activity.
 
-| Module | LLM | TTS | STT | Memory | Status |
-|--------|-----|-----|-----|--------|--------|
-| **Archive of Voices Pro** | Multi-provider | ElevenLabs | Basic (browser) | Journal-based | Active |
-| **Talking Actors** | None | ElevenLabs | No | No | Active |
-| **VoiceGen** | None | ElevenLabs | No | No | Active (v11) |
-| **NOVA Multi-AI** | Multi-provider | ElevenLabs | No | Per-persona notes | Active |
-| **UnKenny** | Multi-provider | None | No | Basic | Unmaintained (dev seeking new owner) |
-| **Inworld Integration** | Inworld AI | ElevenLabs | No | Inworld-managed | Limited (1 NPC at a time) |
-| **RPGX AI Assistant** | Local (Ollama) | None | No | None | New (Nov 2025) |
+| Module | LLM | TTS | STT | Memory | GitHub Downloads | Status |
+|--------|-----|-----|-----|--------|----------------:|--------|
+| **Talking Actors** | None | ElevenLabs | No | No | 271,557 | Active — most downloaded voice module |
+| **Intelligent NPCs** | Multi-provider | None | No | Yes | ~258,319 | Active — most downloaded AI NPC module |
+| **Inworld Integration** | Inworld AI | ElevenLabs | No | Inworld-managed | ~219,347* | Limited (1 NPC at a time) |
+| **Archive of Voices Pro** | Multi-provider | ElevenLabs | Basic (browser) | Journal-based | N/A (Patreon) | Active — 317 Patreon members |
+| **Archive of Voices (free)** | Multi-provider | None | No | Journal-based | 135 | Active (stale — last update Jan 2025) |
+| **NOVA Multi-AI** | Multi-provider | ElevenLabs | No | Per-persona notes | 189 | Active — brand new |
+| **UnKenny** | Multi-provider | None | No | Basic | 0 releases | Unmaintained (dev seeking new owner) |
+| **RPGX AI Assistant** | Local (Ollama) | None | No | None | N/A | New (Nov 2025) |
 
-Archive of Voices Pro is the only one combining LLM + TTS + STT + memory in a single module.
+*Inworld downloads heavily inflated by manifest update checks (216k from one version alone).
+
+**Note:** GitHub download counts include manifest file fetches (automatic update checks), not just installs. Real install counts are a fraction of these numbers.
+
+Archive of Voices Pro is the only one combining LLM + TTS + STT + memory in a single module. Intelligent NPCs (cswendrowski) has significant traction but no TTS — it's AI dialogue only.
 
 ---
 

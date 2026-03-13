@@ -100,28 +100,43 @@ This is larger than the "< 50 patrons" initial estimate. 317 members for a niche
 
 ## 3. Foundry VTT Install Counts
 
-**Result: Not publicly available on official package pages.**
+**Result: Official package pages don't show counts, but GitHub release downloads provide proxy data.**
 
-### What We Found
+### Official Sources
 
-- **foundryvtt.com/packages/** does **not display** install counts, download numbers, or popularity metrics for any module
-- Checked: Archive of Voices Pro, Archive of Voices (free), Nova Multi-AI, Talking Actors, UnKenny, Inworld Integration — **none show counts**
-- **The Forge Bazaar** (forge-vtt.com/bazaar) shows "Installs %" but we couldn't extract specific numbers for these modules
-- **FoundryHub.com** (used to track package stats) appears defunct
+- **foundryvtt.com/packages/** does **not display** install counts or popularity metrics
+- **The Forge Bazaar** shows "Installs %" but was inaccessible for scraping (API blocked)
+- **FoundryHub.com** returned 403 — endorsement data not retrievable
 
-### Proxy Signals
+### GitHub Release Downloads (Best Available Proxy)
 
-| Module | GitHub Stars | Other Signals |
-|--------|-------------|---------------|
-| Archive of Voices (free) | 1 | Not updated since Jan 2025, 2 open bugs |
-| Archive of Voices Pro | N/A (Patreon-gated) | Not on Graphtreon |
-| UnKenny | Unknown | **Developer seeking new maintainer** — sustainability signal |
+**Caveat:** These counts include manifest file (module.json) downloads, which happen every time Foundry checks for updates — not just fresh installs. Real install counts are significantly lower. Zip downloads are a better proxy but still overcount.
 
-### How to Get This Data
+| Module | GitHub Downloads (all releases) | Notes |
+|--------|-------------------------------:|-------|
+| **ACD Talking Actors** | 271,557 | 23 releases since Oct 2023. TTS only (no AI conversation). Most downloaded voice module. |
+| **Intelligent NPCs** | ~258,319 | 20+ releases. Older/established AI NPC module. |
+| **Inworld Integration** | ~219,347 | Heavily inflated — v1.0.0.15 alone is 216k (mostly manifest checks). |
+| **NOVA Multi-AI** | 189 | Brand new (8 releases, v0.3.0 latest). Very early stage. |
+| **Archive of Voices (free)** | 135 | Only 1 release with tracking. Tiny GitHub footprint. |
+| **UnKenny** | 0 releases | No GitHub releases — installed via manifest URL only. Unmaintained. |
 
-1. **Manually check The Forge Bazaar** while logged in — search each module for install %
-2. **Ask in Foundry VTT Discord** — module devs or Foundry staff might share aggregate stats
-3. **Check Foundry's API** — may have undocumented endpoints for package stats
+### Key Observations
+
+1. **ACD Talking Actors dominates** — but it's TTS-only (no AI conversation), so it validates demand for NPC voices, not AI dialogue specifically.
+
+2. **Intelligent NPCs has real traction** — ~258k downloads suggests meaningful interest in AI-powered NPCs within Foundry. This is a module we hadn't deeply analyzed yet.
+
+3. **Archive of Voices has almost no GitHub footprint** (135 downloads) — but has 317 Patreon members. This suggests their users find them through Patreon/Foundry discovery, not GitHub. The Pro version isn't distributed via GitHub at all.
+
+4. **NOVA Multi-AI is brand new** and barely adopted (189 downloads). Not a competitive threat yet.
+
+5. **The total market for "voice + AI NPC" modules is small** compared to general Foundry modules, but the Talking Actors number (271k manifest checks) shows DMs are actively looking for NPC voice solutions.
+
+### Still Missing
+
+- [ ] The Forge Bazaar install percentages (need manual login)
+- [ ] Deeper analysis of Intelligent NPCs module (cswendrowski) — may be a competitor we've underweighted
 
 ---
 
