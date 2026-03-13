@@ -142,37 +142,93 @@ This is larger than the "< 50 patrons" initial estimate. 317 members for a niche
 
 ## 4. User Testimonials — "I Used This In a Session"
 
-**Result: Essentially none exist.**
+**Result: No viral success story exists. Scattered reports are cautious or mixed. The "wow" moment hasn't happened yet.**
 
 ### What We Found
 
-**No viral "my players loved it" post exists.** No detailed session report. No YouTube video of a full session with AI NPC voices and genuine player reactions.
+Despite extensive searching, **no "my players loved it" post with significant engagement exists anywhere.** What does exist is a handful of forum threads, one academic study, and some adjacent video game experiments. None describe the transformative session experience that would signal product-market fit.
 
-### What Does Exist
+### Actual Testimonials Found
 
-| Type | What It Is | Limitation |
-|------|-----------|------------|
-| Pre-generated TTS sessions | DMs write lines → run through ElevenLabs → play audio in session | Not real-time AI; extremely time-consuming to prep |
-| Archive of Voices setup threads | Users discussing configuration, not session experiences | Nobody posts "here's how it went" |
-| Solo RPG AI experiments | Solo players using ChatGPT/Claude + TTS | Described as "neat novelty," not game-changing |
-| YouTube developer demos | "Look what I built" videos | Not actual sessions with real players |
-| Voice changer session reports | DMs using Voicemod (not AI) for NPC voices | Incumbent solution; players love it when done well |
+#### UC Berkeley DnD NPC AI Project (2024) — Best Academic Evidence
+- **Source:** [UC Berkeley School of Information](https://www.ischool.berkeley.edu/projects/2024/dnd-npc-ai)
+- Playtested with real D&D groups. Found "increase in the quality of conversations with players and NPCs" and DMs "didn't have to think as quickly or be as creative in highly specific NPC interactions."
+- **But:** "Speed of service remains a challenge, especially in very dynamic interactions." The AI "does not proactively move the story along without prompting."
+- **Verdict:** Validates the concept works. Latency is the blocker.
+
+#### RPGnet Forum — TTS Experiment (2024)
+- **Source:** [RPGnet — "Using text to speech AI for your RPG table"](https://forum.rpg.net/index.php?threads/using-text-to-speech-ai-for-your-rpg-table.907450/)
+- DM tested ElevenLabs TTS for NPC dialogue across multiple systems.
+- Key quote: *"Generated voice sounds good for maybe 30 seconds, then your mind rapidly starts to notice all the ways that it isn't quite right."*
+- Consensus: only useful for "fairly short sound bites" — not sustained conversation.
+- **Verdict:** The 30-second uncanny valley rule. Short bursts work; sustained dialogue does not (yet).
+
+#### D&D Beyond Forum — Experienced DM Skepticism (2024–2025)
+- **Source:** [D&D Beyond — "Researching Voice Tools"](https://www.dndbeyond.com/forums/dungeons-dragons-discussion/dungeon-masters-only/180095-researching-voice-tools-and-willing-to-create-one)
+- One DM (actor/director): *"Players handle the encounter in a non-standard way the DM hasn't prepared for. In this scenario the tool isn't going to help — I've broken it before it's even been designed."*
+- Another: *"I've seen such things in action and they don't tend to have a great reception in person."*
+- Cost concern: ElevenLabs/Murf are *"pretty inaccessible compared to just speaking (even in your normal voice) in terms of cost."*
+- **Accessibility angle:** One DM with a stammer looking for TTS options — genuine unmet need.
+- **Verdict:** Pre-scripted approaches fail when players go off-script (always). This is exactly what our real-time pipeline solves. But the skepticism about cost and reception is real.
+
+#### EN World Forum — Voicemod for D&D (2023–2024)
+- **Source:** [EN World — "Do you use a Discord voice changer for online play?"](https://www.enworld.org/threads/do-you-use-a-discord-voice-changer-for-online-play.701329/)
+- DM using Voicemod: *"My players haven't had issues with it"* — damning with faint praise.
+- *"Very few of the included modified voices are suitable for TTRPG NPCs"* — better for aliens/monsters than humans.
+- **Verdict:** Voice changers are the incumbent. They get "fine" reactions, not excitement. Low bar to clear.
+
+#### DougDoug AI D&D Campaign (YouTube/Twitch, 2023)
+- **Source:** [DougDoug Fandom Wiki](https://dougdoug.fandom.com/wiki/D%26D_Campaign)
+- Streamer used custom AI agents with AI voices, Twitch chat as players. 6-hour session, described as filled with "laughter, unexpected twists, and memorable moments."
+- Inspired developer Lyndon Codes, who found his own test game *"actually felt like a real Dungeons & Dragons game in how the players immediately got derailed."*
+- **Verdict:** Positive — but entertainment/streaming context, not a traditional DM-runs-NPCs scenario.
+
+#### Meaning Machine "Dead Meat" Study (2024–2025)
+- **Source:** [PC Gamer — 95% of players enjoy AI NPCs](https://www.pcgamer.com/software/ai/company-that-makes-generative-ai-powered-npcs-reports-that-95-percent-of-players-enjoy-their-generative-ai-powered-npcs/)
+- 68 participants, 95% "found the experience enjoyable," 97% found it rewarding. Players interrogated NPCs via microphone.
+- Co-founder: *"Players kick back at AI when it takes away from creativity. But when AI is used to power totally new types of interactive experience, then it's a very different story."*
+- **But:** 20-minute sessions only, "slightly offputting AI voices" noted even in the positive write-up. Video game, not TTRPG.
+- **Verdict:** Strongest positive data point — but short sessions and company-funded study. The positioning insight ("new experience" vs "replacing creativity") aligns with our DM-tool framing.
+
+#### Skyrim AI NPC Mods (Mantella/Inworld, 2024)
+- **Source:** [XDA Developers](https://www.xda-developers.com/i-used-mods-to-bring-ai-powered-npcs-to-skyrim/)
+- YouTube demo got 680k+ views. Comments: *"This is actually insane. The roleplay potential just shot through the roof."*
+- **But:** Setup is brutal. Nexus Mods users: *"Don't waste your time trying to get this to work with a local model, unless you are an absolute expert."* The original Inworld mod was abandoned (hidden July 2024).
+- **Verdict:** Highest enthusiasm of any testimonial — but for video games, not tabletop. Validates that when AI NPC voice works, the reaction is electric. Setup complexity kills adoption.
+
+#### TikTok DM — Sesame Voice Test (2025–2026)
+- *"Every single time there is an improvement to AI voice tech, I use the 'how well does it DM' test. Sesame is pretty good, if a bit flirty for no reason."*
+- **Verdict:** DMs are actively benchmarking new voice tech for TTRPG use. Personality leakage ("flirty for no reason") is a real problem — our system prompt engineering solves this.
+
+#### UnKenny Foundry Module — Origin Story
+- **Source:** [Foundry VTT — UnKenny](https://foundryvtt.com/packages/unkenny)
+- *"The idea arose during our Starfinder game, because we wanted to simulate the interaction with a robotical NPC."*
+- **Verdict:** AI voices work best for non-human NPCs where robotic quality is a feature, not a bug. Niche but interesting positioning angle.
+
+### Key Patterns
+
+1. **The "30-second rule"** — AI voice sounds impressive briefly, then the uncanny valley kicks in. Short bursts > sustained conversation with current TTS.
+
+2. **Latency kills it** — UC Berkeley, D&D Beyond, and RPGnet all flag pacing disruption. The typing-then-waiting-for-TTS workflow is fundamentally broken for live play.
+
+3. **Pre-scripted approaches break on contact with players** — Players always go off-script. This is exactly what our real-time LLM pipeline solves (and what forum skeptics say can't be solved).
+
+4. **Voice changers are the incumbent** — Voicemod gets "fine" reactions. The bar isn't high, but it's real: DMs already have a free option that works OK.
+
+5. **Non-human NPCs are the easy win** — Robotic/alien voices are forgiving of TTS artifacts. Human voices are harder.
+
+6. **The Skyrim mod reaction is the proof of concept** — 680k views, "this is insane" comments. When AI NPC voice works well, the reaction is electric. Nobody has replicated that reaction in tabletop yet.
+
+7. **Positioning determines reception** — "AI powers a new experience" gets 95% approval. "AI replaces human creativity" gets pushback. Our DM-tool positioning is correct.
 
 ### Why This Matters
 
-The absence of testimonials is the most important finding in this entire document.
-
-**The demand-satisfaction gap:**
-- **Demand exists** — DMs keep asking about AI NPC voices (see §1)
-- **Satisfaction doesn't exist yet** — Nobody is posting "this changed my game"
+The demand-satisfaction gap remains the central insight:
+- **Demand exists** — DMs keep asking, keep testing, keep benchmarking new voice tech
+- **Satisfaction doesn't exist yet** — No viral success story, no "this changed my game" post
 - **The gap = the opportunity**
 
-The TTRPG community is extremely sharing-oriented. When something works well at a table, DMs post about it. The absence of "this was amazing" posts means one of two things:
-
-1. **The tools aren't good enough yet** to create a genuinely impressive session experience (most likely — latency, voice quality, and setup complexity all prevent it)
-2. **DMs who've had good experiences aren't posting** (unlikely given community norms)
-
-**The implication:** The first tool that generates a genuine "my players lost their minds when the NPC talked back to them" Reddit post has its viral marketing moment built in. That post doesn't exist yet. We can be the ones who create the conditions for it.
+The first tool that generates a genuine "my players lost their minds when the NPC talked back" Reddit post has its viral marketing moment built in. That post doesn't exist yet. The Skyrim mod community shows what the reaction looks like when it works — we need to create that reaction for tabletop.
 
 ---
 
@@ -210,4 +266,12 @@ The TTRPG community is extremely sharing-oriented. When something works well at 
 - Patreon: patreon.com/ShadowdrakeCreations (317 members, earnings hidden)
 - Graphtreon: Not indexed (returned 403)
 - Foundry VTT: foundryvtt.com/packages/ (no public install metrics)
-- GitHub: github.com/DamondSD/archive-of-voices (1 star)
+- GitHub: github.com/DamondSD/archive-of-voices (1 star), acd-jake/acd-talking-actors, cswendrowski/FoundryVTT-Intelligent-NPCs, BdrGM/nova-multiai
+- [Foundry VTT Year in Review 2025](https://foundryvtt.com/article/year-in-review-2025/)
+- [UC Berkeley DnD NPC AI Project](https://www.ischool.berkeley.edu/projects/2024/dnd-npc-ai)
+- [RPGnet — "Using text to speech AI for your RPG table"](https://forum.rpg.net/index.php?threads/using-text-to-speech-ai-for-your-rpg-table.907450/)
+- [D&D Beyond — "Researching Voice Tools"](https://www.dndbeyond.com/forums/dungeons-dragons-discussion/dungeon-masters-only/180095-researching-voice-tools-and-willing-to-create-one)
+- [EN World — "Do you use a Discord voice changer for online play?"](https://www.enworld.org/threads/do-you-use-a-discord-voice-changer-for-online-play.701329/)
+- [PC Gamer — Meaning Machine "Dead Meat" study](https://www.pcgamer.com/software/ai/company-that-makes-generative-ai-powered-npcs-reports-that-95-percent-of-players-enjoy-their-generative-ai-powered-npcs/)
+- [XDA — AI NPCs in Skyrim](https://www.xda-developers.com/i-used-mods-to-bring-ai-powered-npcs-to-skyrim/)
+- [DougDoug D&D Campaign](https://dougdoug.fandom.com/wiki/D%26D_Campaign)
