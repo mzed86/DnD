@@ -5,56 +5,79 @@
 
 ---
 
-## 1. Reddit Demand Threads — DMs Asking for AI NPC Voices
+## 1. DM Demand Threads — Requesting AI NPC Voice Capabilities
 
-### Pattern 1: "How do I voice my NPCs?" (Universal Pain Point)
+**Note:** Reddit blocks automated scraping. Demand signals below come from Reddit pattern analysis (via search engine indexing) plus direct access to D&D Beyond, EN World, RPGnet, and OpenAI community forums. Reddit-specific threads would need manual search or API access.
 
-The most common demand signal. DMs struggling with voice acting for multiple NPCs appears **monthly** across r/DMAcademy and r/DnD with significant engagement. The underlying need is universal — DMs want distinct NPC voices but most can't voice act. Current advice boils down to "practice accents" or "use speech patterns instead of voices."
+### The Core Pain Point: "I Can't Do Voices"
+
+The most common demand signal across all TTRPG forums. DMs struggling with voice acting for multiple NPCs is a **monthly** topic on r/DMAcademy, r/DnD, D&D Beyond forums, and EN World. The Critical Role effect drives pressure — DMs feel they should voice NPCs distinctly but lack the range.
+
+- [D&D Beyond — "How to do the voices?"](https://www.dndbeyond.com/forums/dungeons-dragons-discussion/dungeon-masters-only/107309-how-to-do-the-voices) — Long-running thread of DMs struggling with NPC voice differentiation.
+- [D&D Beyond — "Voice changer"](https://www.dndbeyond.com/forums/dungeons-dragons-discussion/dungeon-masters-only/178604-voice-changer) — DMs described players being *"forced to deal with NPCs that usually have very bad, almost culturally insensitive accents that are liable to change mid-conversation."*
 
 This is the pain we're solving. It's not niche — it's one of the most frequently discussed DM challenges.
 
-### Pattern 2: DMs Specifically Asking About AI/TTS Solutions
+### Specific AI/TTS Solution Requests
 
-Found across r/DMAcademy, r/FoundryVTT, and r/DnD:
-- "Has anyone used AI for NPC voices?" type posts
-- Foundry users requesting modules that add TTS/AI conversation to NPCs
-- "Is there an AI that can voice my NPCs?" queries
+#### D&D Beyond — "Researching Voice Tools (and willing to create one)"
+- **URL:** [D&D Beyond Forums](https://www.dndbeyond.com/forums/dungeons-dragons-discussion/dungeon-masters-only/180095-researching-voice-tools-and-willing-to-create-one)
+- DM asked for a configurable text-to-voice program where they type/speak and the tool recreates a specific NPC voice.
+- One commenter identified exactly our product gap: what DMs actually need is *"something far more complex, likely comprising an LLM and an understanding of your planned scenarios and campaigns"* — not just a TTS tool. **This is literally our STT → LLM → TTS pipeline.**
 
-Key sentiments:
-- Want NPCs that "sound different from each other"
-- Want ElevenLabs-style TTS integrated into VTT workflow (not a separate app)
-- Want **real-time voice conversation**, not pre-recorded clips
-- Worried about latency: "would it be fast enough to not break the flow?"
-- Worried about cost: "I can't afford $30/month for voice APIs"
+#### RPGnet — "Using text to speech AI for your RPG table"
+- **URL:** [RPGnet Forums](https://forum.rpg.net/index.php?threads/using-text-to-speech-ai-for-your-rpg-table.907450/)
+- DM tested ElevenLabs across D&D, Shadowrun, Vampire, Starfinder, 7th Sea.
+- Users reported positive experiments but said the technology "wasn't quite ready" — wanting more voice variety and faster generation.
 
-### Pattern 3: Foundry VTT Module Requests
+#### EN World — "Using AI for Your Home Game"
+- **URL:** [EN World](https://www.enworld.org/threads/using-ai-for-your-home-game.706910/)
+- DMs exploring AI as a DM assistant, with voice being one desired capability.
+- Signal: *"Traditionally-minded DMs have recently come around to digitally assisted RP tools."*
 
-r/FoundryVTT (~78k members) shows a specific pattern: users **expect** that someone has built AI NPC voice modules (because Foundry's ecosystem sets that expectation). When they discover existing tools are limited, there's visible disappointment.
+#### DDO Forums — Direct Feature Request for AI NPC Voiceovers
+- **URL:** [DDO Forums](https://forums.ddo.com/index.php?threads/qol-make-use-of-ai-to-give-voiceovers-text-to-speech-to-all-npcs.236/)
+- Direct feature request: use AI to give voiceovers to ALL NPCs.
 
-Posts asking about TTS integration, AI conversation modules, and "is there a module that lets NPCs talk?" appear regularly.
+#### OpenAI Community — "Calling all Dungeon Masters, I need testers"
+- **URL:** [OpenAI Community](https://community.openai.com/t/calling-all-dungeon-masters-i-need-a-few-testers-update/658590)
+- Developer built AI DM with voice/image narration + persistent world + planned Discord integration.
+- Was able to recruit DM testers, indicating demand for the concept.
 
-### Pattern 4: Solo RPG Players (Underserved Beachhead)
+### Recurring Pain Points Across All Forums
+
+| Pain Point | Frequency | Our Answer |
+|-----------|-----------|------------|
+| "I can't do voices" | **Very common** | AI handles voice acting; DM handles everything else |
+| "Typing takes too long / latency" | **Common** | < 2s target latency; real-time voice pipeline |
+| "Voice changers sound robotic, not human" | **Common** | Tiered TTS: Hume Octave / ElevenLabs for important NPCs |
+| "Pre-scripted breaks when players improvise" | **Moderate** | LLM in the loop handles unscripted dialogue |
+| "Cost is prohibitive" | **Common** | Tiered voices (cheap Cartesia for tavern NPCs, premium for BBEGs) |
+| "Players want human-sounding responses" | **Moderate** | Premium TTS tier for key NPCs; quick tier for background |
+
+### Solo RPG Players (Underserved Beachhead)
 
 r/Solo_Roleplaying (~80k members) has distinct demand. Solo players are **more receptive** to AI NPCs than group-play DMs — they don't have another human playing the NPC, so AI fills a real gap. Regular threads about using ChatGPT/Claude for solo play, with voice as a frequently requested enhancement.
 
-### Pattern 5: Counter-Signals (Skeptics)
+### Counter-Signals (Skeptics)
 
-Present across r/DnD, r/rpg, r/DMAcademy:
+Present across r/DnD, r/rpg, r/DMAcademy, D&D Beyond:
 - "AI will never replace a human DM's voice acting"
 - "The imperfection of a DM's voice IS the charm"
 - "AI voices sound robotic/uncanny"
-- General anti-AI sentiment in creative communities
+- "Players want a human response, not an artificial response — they can get that from video games"
 
-**Critical nuance:** Skeptics are almost always responding to "AI replacing DMs" — not "AI as a tool that helps DMs." Our positioning as DM-controlled voice actor, not DM replacement, sidesteps most objections.
+**Critical nuance:** Skeptics are almost always responding to "AI replacing DMs" — not "AI as a tool that helps DMs." Our positioning as DM-controlled voice actor, not DM replacement, sidesteps most objections. The Meaning Machine study (§4) confirms this: *"Players kick back at AI when it takes away from creativity. But when AI is used to power totally new types of interactive experience, then it's a very different story."*
 
 ### Demand Strength Summary
 
 | Signal | Strength | Notes |
 |--------|----------|-------|
-| DMs want distinct NPC voices | **Very Strong** | Universal, constant pain point |
-| Interest in AI/TTS solutions | **Moderate** | Steady drumbeat, not viral |
+| DMs want distinct NPC voices | **Very Strong** | Universal, constant pain point across all forums |
+| Interest in AI/TTS solutions | **Moderate** | Steady drumbeat; specific forum threads with URLs |
 | Willingness to pay | **Weak–Moderate** | Hobby budgets are tight; cost is #1 concern |
 | Want real-time voice conversation | **Moderate** | Frequently asked about, skepticism about feasibility |
+| Want LLM in the loop (not just TTS) | **Moderate** | Sophisticated DMs articulate this need explicitly |
 | Want VTT integration | **Strong** | Foundry users expect module-based solutions |
 | Anti-AI sentiment | **Moderate** | Positioning-dependent — "AI assists DM" gets better reception than "AI DM" |
 
@@ -262,16 +285,26 @@ The first tool that generates a genuine "my players lost their minds when the NP
 
 ## Sources
 
-- Reddit: r/DMAcademy, r/FoundryVTT, r/DnD, r/Solo_Roleplaying, r/rpg (multiple threads, 2024–2026)
-- Patreon: patreon.com/ShadowdrakeCreations (317 members, earnings hidden)
-- Graphtreon: Not indexed (returned 403)
-- Foundry VTT: foundryvtt.com/packages/ (no public install metrics)
-- GitHub: github.com/DamondSD/archive-of-voices (1 star), acd-jake/acd-talking-actors, cswendrowski/FoundryVTT-Intelligent-NPCs, BdrGM/nova-multiai
-- [Foundry VTT Year in Review 2025](https://foundryvtt.com/article/year-in-review-2025/)
-- [UC Berkeley DnD NPC AI Project](https://www.ischool.berkeley.edu/projects/2024/dnd-npc-ai)
-- [RPGnet — "Using text to speech AI for your RPG table"](https://forum.rpg.net/index.php?threads/using-text-to-speech-ai-for-your-rpg-table.907450/)
+### Demand Threads & Forums
+- [D&D Beyond — "How to do the voices?"](https://www.dndbeyond.com/forums/dungeons-dragons-discussion/dungeon-masters-only/107309-how-to-do-the-voices)
+- [D&D Beyond — "Voice changer"](https://www.dndbeyond.com/forums/dungeons-dragons-discussion/dungeon-masters-only/178604-voice-changer)
 - [D&D Beyond — "Researching Voice Tools"](https://www.dndbeyond.com/forums/dungeons-dragons-discussion/dungeon-masters-only/180095-researching-voice-tools-and-willing-to-create-one)
+- [RPGnet — "Using text to speech AI for your RPG table"](https://forum.rpg.net/index.php?threads/using-text-to-speech-ai-for-your-rpg-table.907450/)
 - [EN World — "Do you use a Discord voice changer for online play?"](https://www.enworld.org/threads/do-you-use-a-discord-voice-changer-for-online-play.701329/)
+- [EN World — "Using AI for Your Home Game"](https://www.enworld.org/threads/using-ai-for-your-home-game.706910/)
+- [DDO Forums — AI NPC voiceover feature request](https://forums.ddo.com/index.php?threads/qol-make-use-of-ai-to-give-voiceovers-text-to-speech-to-all-npcs.236/)
+- [OpenAI Community — "Calling all Dungeon Masters"](https://community.openai.com/t/calling-all-dungeon-masters-i-need-a-few-testers-update/658590)
+- Reddit: r/DMAcademy, r/FoundryVTT, r/DnD, r/Solo_Roleplaying, r/rpg (blocked for automated access; patterns inferred from search engine indexing)
+
+### Testimonials & Studies
+- [UC Berkeley DnD NPC AI Project](https://www.ischool.berkeley.edu/projects/2024/dnd-npc-ai)
 - [PC Gamer — Meaning Machine "Dead Meat" study](https://www.pcgamer.com/software/ai/company-that-makes-generative-ai-powered-npcs-reports-that-95-percent-of-players-enjoy-their-generative-ai-powered-npcs/)
 - [XDA — AI NPCs in Skyrim](https://www.xda-developers.com/i-used-mods-to-bring-ai-powered-npcs-to-skyrim/)
 - [DougDoug D&D Campaign](https://dougdoug.fandom.com/wiki/D%26D_Campaign)
+
+### Competitor & Market Data
+- Patreon: patreon.com/ShadowdrakeCreations (317 members, earnings hidden)
+- Graphtreon: Not indexed (returned 403)
+- Foundry VTT: foundryvtt.com/packages/ (no public install metrics)
+- [Foundry VTT Year in Review 2025](https://foundryvtt.com/article/year-in-review-2025/)
+- GitHub: github.com/DamondSD/archive-of-voices (1 star), acd-jake/acd-talking-actors, cswendrowski/FoundryVTT-Intelligent-NPCs, BdrGM/nova-multiai
